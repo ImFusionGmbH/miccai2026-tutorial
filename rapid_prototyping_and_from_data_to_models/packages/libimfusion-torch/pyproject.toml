@@ -1,0 +1,24 @@
+[project]
+name = "libimfusion-torch"
+version = "4.5.0"
+description = "Torch plugin of the ImFusion SDK, using the libraries of the torch package instead of bundling them"
+requires-python = ">=3.10"
+dependencies = [
+    "libimfusion~=4.5.0",
+    "libimfusion-graph~=4.5.0",
+    "libimfusion-machinelearning~=4.5.0",
+    "libimfusion-stream~=4.5.0",
+    "torch~=2.7.0",  # The plugin is built against torch 2.7 with CUDA 12.8
+]
+
+[project.entry-points.libimfusion]
+libTorchPlugin = "libimfusion_torch:plugin_path"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+bypass-selection = true  # All files are fetched by the build hook
+
+[tool.hatch.build.targets.wheel.hooks.custom]
