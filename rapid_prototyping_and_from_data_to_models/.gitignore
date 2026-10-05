@@ -1,0 +1,7 @@
+.ipynb_checkpoints/
+.idea/
+rapid_prototyping_and_from_data_to_models/data/brats-africa/51_OtherNeoplasms/
+rapid_prototyping_and_from_data_to_models/data/brats-africa/95_Glioma/
+rapid_prototyping_and_from_data_to_models/data/brats-africa/.download/
+rapid_prototyping_and_from_data_to_models/data/brats-africa/project/lock
+__pycache__/

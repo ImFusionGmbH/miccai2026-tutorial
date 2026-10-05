@@ -1,0 +1,56 @@
+[project]
+name = "miccai-2026-tutorial"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "HD-BET",
+    "imfusion-sdk[base]~=1.0",
+    "libimfusion-torch~=4.5.0",
+    "numpy",
+    "torch~=2.7.0",
+]
+
+[project.scripts]
+slides = "slides:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+only-include = ["slides.py"]
+
+[tool.uv]
+prerelease = "allow"
+default-groups = ["presentation"]
+
+[[tool.uv.index]]
+name = "imfusion"
+url = "https://pypi.imfusion.com/simple"
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true  # only used by packages that opt in via [tool.uv.sources]
+
+[tool.uv.sources]
+imfusion-sdk = { index = "imfusion" }
+imfusion-sdk-dicom = { index = "imfusion" }
+imfusion-sdk-machinelearning = { index = "imfusion" }
+imfusion-sdk-registration = { index = "imfusion" }
+libimfusion-cranial = { index = "imfusion" }
+# Only the plugin from the published wheel, which additionally bundles libtorch and CUDA (2.7 GB)
+libimfusion-torch = { path = "packages/libimfusion-torch" }
+torch = [
+  { index = "pytorch-cu128", marker = "platform_system != 'Darwin'" },
+]
+
+[dependency-groups]
+presentation = [
+    "jupyterlab>=4.4",
+    "jupyterlab-rise>=0.43",
+]
+specialty = [
+    "imfusion-sdk[anatomy,computed-tomography,spine,ultrasound,vision]~=1.0",
+    "libimfusion-cranial~=4.5.0",
+]
